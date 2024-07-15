@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout_ROLE_Administrateur}">
+<head>
+<meta charset="utf-8">
+<title>Gestion des profil</title>
+
+
+
+</head>
+<body ng-app="paramapp" ng-controller="paramprofiladmin">
+
+	<div style="padding-right: 10%; padding-left: 10%;"  class="right_col"
+		role="main" data-layout-fragment="content" >
+						<div class="x_panel">
+						<div class="x_content">
+
+									<div class="col-md-12 col-sm-12  col-xs-12" align="center" >
+									
+									<div class="col-md-3 col-sm-3  col-xs-3" layout="column">
+									</div>
+									   
+									
+									   <div class="col-md-6 col-sm-6  col-xs-6"    layout="column">
+										<form name="fnform"  
+											method="post">
+														                                 	
+			                                 	
+			                                 
+			                                 		 <div    class="col-md-12 col-sm-12 col-xs-12"  style="text-align: center; color: white; font-weight: bold; background-color: navy; height: 25px; padding-top: 5px">
+			                                 	CHANGER DE PROFIL</div>
+			                                  
+			                                 
+			                                 	<br>
+			                                 	<br>
+                                        <div class="col-md-6 col-sm-6 col-xs-6" >
+											<md-input-container flex class="md-block">
+											<label>LOGIN</label> <input required  readonly="readonly"
+												 name="username"
+												ng-model="profil.username">
+											<div ng-messages="fnform.username.$error">
+												<div ng-message="required">Ne peut être vide</div>
+											</div>
+											</md-input-container>
+											</div>
+											
+										 
+											 <div class="col-md-6 col-sm-6 col-xs-6" >
+											<md-input-container flex class="md-block">
+											<label> MOT DE PASSE</label> <input required
+												 name="password"
+												ng-model="profil.password">
+											<div ng-messages="fnform.password.$error">
+												<div ng-message="required">Ne peut être vide</div>
+											</div>
+											</md-input-container>
+											</div>
+											
+											 
+											
+											<div class="col-md-12 col-sm-12 col-xs-12" >
+												<md-button class="md-raised md-primary" ng-click="validerprofil()">Valider</md-button>
+												</div>
+												
+											
+											
+											
+											<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 		 <div    class="col-md-12 col-sm-12 col-xs-12"  style="text-align: center; color: white; font-weight: bold; background-color: navy; height: 25px; padding-top: 5px">
+			                                 	</div>
+												
+										</form>
+										</div>
+										
+										<div class="col-md-3 col-sm-3  col-xs-3"  align="center" layout="column">
+									</div>
+									</div>
+									<div class="col-md-12 col-sm-12  col-xs-12" align="center" >
+									
+									<div class="col-md-2 col-sm-2  col-xs-2" layout="column">
+									
+									 			<br>
+			                                 	
+			                                 	<br>
+			                                 	<br>
+			                                 	
+			                                 	<br>
+									</div>
+									   
+								                
+									 
+									   
+									   
+									   
+									   <div class="col-md-8 col-sm-8  col-xs-8">
+										<br>
+			                                 	
+			                                 	<br>
+										<table id="matab" ng-table="usersTable" show-filter=true
+												class="table table-striped table-bordered   table-condensed  table-responsive ">
+												<tbody>
+
+													<tr ng-repeat="us in data" class="even pointer">
+ 
+
+														<td style="width: 40%" class=" " data-title="'Utilisateur'"
+															sortable="'username'" filter="{ 'username': 'text' }">{{us.username}}</td>
+														<td  style="width: 40%"  class=" " data-title="'Mot de passe'"
+															sortable="'password'" filter="{ 'password': 'text' }">{{us.password}}</td>
+													
+
+														<td width="5px" class="active " id="modif"><Button
+																id="myBtn2" class="btn btn-success btn-xs"
+																ng-click="trouverprofil(us.username)">update</button></td>
+																
+																
+																<td width="5px" class="active " id="modif"><button ng-if="us.actif==false" 
+																id="myBtnl" class="btn btn-info btn-xs"
+																ng-click="activerprofil(us.username)">Activer</button><button ng-if="us.actif==true" 
+																id="myBtnl" class="btn btn-info btn-xs"
+																ng-click="desactiverprofil(us.username)">Désactiver</button></td>
+																
+														 
+													</tr>
+
+												</tbody>
+
+												<tfoot>
+												<div layout="row" class="col-md-12 col-sm-12 col-xs-12">
+                                                       <div  class="col-md-6 col-sm-6 col-xs-6" align="left"><button 
+																id="myBtnl" class="btn btn-info btn-xs"
+																ng-click="activertout()">Tout activer</button></div>
+																
+																 <div class="col-md-6 col-sm-6 col-xs-6"	align="right"><button 
+																id="myBtnl" class="btn btn-danger btn-xs"
+																ng-click="desactivertout()">Tout désactiver</button></div>
+																</div>
+
+												</tfoot>
+											</table>
+										
+								    
+									
+									   
+										
+										</div>
+										
+										<div class="col-md-2 col-sm-2  col-xs-2"  align="center" layout="column">
+									</div>
+									</div>
+									
+									
+					<!-- 				<div class="col-md-12  col-sm-12  col-xs-12" align="center" >
+									
+										<div class="col-md-2 col-sm-2  col-xs-2" layout="column">
+									</div>
+									
+										<div class="col-md-8 col-sm-8  col-xs-8">
+										
+										<table id="matab" ng-table="usersTable" show-filter=true
+												class="table table-striped table-bordered   table-condensed  table-responsive ">
+												<tbody>
+
+													<tr ng-repeat="us in data" class="even pointer">
+ 
+
+														<td style="width: 25px" class=" " data-title="'Utilisateur'"
+															sortable="'username'" filter="{ 'username': 'text' }">{{us.username}}</td>
+														<td class=" " data-title="'Mot de passe'"
+															sortable="'password'" filter="{ 'password': 'text' }">{{us.password}}</td>
+													
+
+														<td width="5px" class="active " id="modif"><Button
+																id="myBtn2" class="btn btn-success btn-xs"
+																ng-click="trouverprofil(us.username)">update</button></td>
+																
+																
+																<td width="5px" class="active " id="modif"><button ng-if="us.actif==false" 
+																id="myBtnl" class="btn btn-info btn-xs"
+																ng-click="activerprofil(us.username)">Activer</button><button ng-if="us.actif==true" 
+																id="myBtnl" class="btn btn-info btn-xs"
+																ng-click="desactiverprofil(us.username)">Désactiver</button></td>
+																
+														 
+													</tr>
+
+												</tbody>
+
+												<tfoot>
+												<div> layout="row">
+                                                       <div align="left"><button 
+																id="myBtnl" class="btn btn-info btn-xs"
+																ng-click="activertout()">Tout activer</button></div>
+																
+																 <div 	align="right"><button 
+																id="myBtnl" class="btn btn-info btn-xs"
+																ng-click="desactivertout()">Tout désactiver</button></div>
+																</div>
+
+												</tfoot>
+											</table>
+										
+								    	</div>
+									
+									
+									
+									
+									
+										<div class="col-md-2 col-sm-2  col-xs-2" layout="column">
+									</div>
+									
+									
+									
+									
+									</div>
+									 -->
+
+					 
+				 </div>
+			</div>
+
+
+		</div>
+
+ 
+
+</body>
+</html>

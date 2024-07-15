@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title data-layout-title-pattern="$LAYOUT_TITLE | $CONTENT_TITLE">GESCCOM-WEB</title>
+
+    <!-- Bootstrap -->
+    <link href="/webjars/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link href="/webjars/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <!-- NProgress -->
+    <link href="/webjars/nprogress/nprogress.css" rel="stylesheet">
+    <link href="js/node_modules/angular-material/angular-material.css" rel="stylesheet">
+	<link rel="stylesheet" href="js/node_modules/ng-table/bundles/ng-table.min.css">
+    <!-- Custom Theme Style -->
+    <link href="css/custom.min.css" rel="stylesheet">
+    <link href="js/xeditable.min.css" rel="stylesheet" type="text/css"/>
+    <link href="css/angular-xeditable/css/xeditable.min.css" rel="stylesheet" type="text/css"/>
+     <!-- PNotify -->
+    <link href="js/pnotify/dist/pnotify.css" rel="stylesheet">
+    <link href="js/pnotify/dist/pnotify.buttons.css" rel="stylesheet">
+    <link href="js/pnotify/dist/pnotify.nonblock.css" rel="stylesheet">
+    
+</head>
+
+<body class="nav-md">
+<div class="container body">
+    <div class="main_container">
+        <div class="col-md-3 left_col">
+            <div class="left_col scroll-view">
+                <div class="navbar nav_title" style="border: 0;">
+                    <div  class="site_title" style="font-family: Bell MT"><i class="fa fa-mortar-board"></i><span>GESCCOM-WEB</span></div>
+                </div>
+
+                <div class="clearfix"></div>
+
+                <!-- menu profile quick info -->
+                <div  data-th-replace="fragments/fragment-menu-profile-quick-info :: menu-profile-quick-info"></div>
+                <!-- /menu profile quick info -->
+
+                <br/>
+
+                <!-- sidebar menu -->
+                <div data-th-replace="fragments/fragment-sidebar-menuadmin :: sidebar-menu"></div>
+                <!-- /sidebar menu -->
+
+                <!-- /menu footer buttons -->
+                <div data-th-replace="fragments/fragment-menu-footer-buttons :: menu-footer-buttons"></div>
+                <!-- /menu footer buttons -->
+
+            </div>
+        </div>
+
+        <!-- top navigation -->
+        <div data-th-replace="fragments/fragment-top-navigation :: top-navigation"></div>
+        <!-- /top navigation -->
+
+        <!-- page content -->
+        <div  data-layout-fragment="content" ></div>
+        <!-- /page content -->
+
+        <!-- footer content -->
+        <div  data-th-replace="fragments/fragment-footer-content :: footer-content"></div>
+        <!-- /footer content -->
+    </div>
+</div>
+<script src="js/angular.min.js"></script>
+<!-- jQuery -->
+<script src="js/jquery.min.js"></script>
+<!-- Bootstrap -->
+<script src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+<!-- FastClick -->
+<script src="js/node_modules/angular-1.4.8/angular-1.4.8/angular-aria.min.js"></script>
+<script src="js/node_modules/angular-1.4.8/angular-1.4.8/angular-messages.min.js"></script>
+<script src="js/node_modules/angular-1.4.8/angular-1.4.8/angular-animate.min.js"></script>
+<script type="text/javascript" src="/js/node_modules/angular-material/angular-material.min.js"></script>
+<!-- NProgress -->
+<script src="/webjars/nprogress/nprogress.js"></script>
+<!-- Custom Theme Scripts -->
+<script type="text/javascript" src="js/angular-route.js"></script>
+<script  src="/js/xeditable.min.js"  type="text/javascript"></script>
+<script src="/css/angular-xeditable/js/xeditable.min.js" type="text/javascript"></script>
+ <!-- PNotify -->
+    <script src="js/pnotify/dist/pnotify.js"></script>
+    <script src="/js/pnotify/dist/pnotify.buttons.js"></script>
+    <script src="/js/pnotify/dist/pnotify.nonblock.js"></script>
+
+<script src="/js/custom.min.js"></script>
+<script type="text/javascript" src="js/node_modules/ng-table/bundles/ng-table.min.js"></script>
+<script src="/js/checklist-model.js" type="text/javascript"></script>
+<script src="js/dynamic-number.js" type="text/javascript"></script>
+<script src="js/parametrage.js" type="text/javascript"></script>
+<script src="/js/etudiant.js" type="text/javascript"></script>  
+</body>
+</html>

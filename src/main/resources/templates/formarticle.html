@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html data-layout-decorate="~{fragments/layout_ROLE_Administrateur}">
+    <head>
+        <meta charset="utf-8" />
+        <title>Gerer Article</title>
+    </head>
+    <body ng-app="paramapp" ng-controller="paramArticle">
+        <div  style="padding-right: 2%; padding-left: 2%;"  class="right_col" role="main" data-layout-fragment="content">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 style="font-family: Bell MT;">GESCCOM-WEB</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 style="font-family: Bell MT;">Gestion des Articles</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" ng-cloak>
+                                <div class="col-md-12">
+                                    <div class="col-md-12 col-sm-6 col-xs-12 table-responsive" align="center">
+                                    
+                                           <form name="fnform" align="center">
+                                            <table class="table table-sm table-bordered" style="overflow: hidden;">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="1">CLASSE</th>
+                                                        <th colspan="1">SOUS CLASSE</th>
+                                                        <th colspan="1">SUBDIVISION</th>
+                                                        <th colspan="2">COMPTE</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        
+                                                         <td width="25%">
+                                                                <select ng-model="classeID" convert-to-number required class="form-control col-md-7 col-xs-12" ng-change="OnSousClasses(classeID)">
+                                                                    <option ng-repeat="opts in listeclasses" value="{{opts.id}}">{{" [ "+opts.code+" ] "+""+opts.libelle}}</option>
+                                                                </select>
+                                                            </td>
+
+                                                            <td width="25%">
+                                                                <select ng-model="sousClasseID" convert-to-number required class="form-control col-md-7 col-xs-12" ng-change="OnSubdivision(sousClasseID)">
+                                                                    <option ng-repeat="opts in findsousclasses" value="{{opts.id}}">{{" [ "+opts.code+" ] "+""+opts.libelle}}</option>
+                                                                </select>
+                                                            </td>
+
+ 														   <td width="25%">
+                                                                <select ng-model="subdivisionID" convert-to-number required class="form-control col-md-7 col-xs-12" ng-change="OnCompte(subdivisionID)">
+                                                                    <option ng-repeat="opts in findsubdivisions" value="{{opts.id}}">{{" [ "+opts.numero+" ] "+""+opts.libelle}}</option>
+                                                                </select>
+                                                            </td>
+                                                            
+                                                             <td width="25%">
+                                                                <select ng-model="article.compte.id" convert-to-number required class="form-control col-md-7 col-xs-12">
+                                                                    <option ng-repeat="opts in findcomptes" value="{{opts.id}}">{{" [ "+opts.numero+" ] "+""+opts.libelle}}</option>
+                                                                </select>
+                                                            </td>
+                                                            
+                                                     
+
+                                                        
+
+                                                      
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            
+                                            <table class="table table-sm table-bordered" style="overflow: hidden;">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="7"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                           <td width="15%">
+                                                                <select ng-model="article.conditionnement.id" convert-to-number required class="form-control col-md-7 col-xs-12">
+                                                                    <option ng-repeat="opts in findconditionnements" value="{{opts.id}}">{{opts.libelle}}</option>
+                                                                </select>
+                                                            </td>
+                                                            
+                                                            <td  width="15%">
+                                                                <select ng-model="article.sousGroup.id" convert-to-number required class="form-control col-md-7 col-xs-12">
+                                                                    <option ng-repeat="opts in findsousgroup" value="{{opts.id}}">{{opts.libelle}}</option>
+                                                                </select>
+                                                            </td>
+                                                            
+                                                        <td>
+                                                            <input placeholder="Reference" class="form-control form-control form-control-sm" required type="text" name="codeBank" ng-model="article.reference" />
+                                                        </td>
+                                                         <td>
+                                                            <input placeholder="Stock" class="form-control form-control form-control-sm" required type="text" name="stock" ng-model="article.stock" />
+                                                        </td>
+                                                        
+                                                        <td>
+                                                            <input placeholder="Designation" class="form-control form-control form-control-sm" required type="text" name="libBank" ng-model="article.designation" />
+                                                        </td>
+                                                        
+                                                         <td>
+                                                            <textarea placeholder="Description" class="form-control form-control form-control-sm" required type="text" name="codeBank" ng-model="article.description"></textarea>
+                                                        </td>
+                                                        
+                                                         <td>
+                                                            <input placeholder="Prix Unitaire" number-input class="form-control form-control form-control-sm" required type="text" name="libBank" ng-model="article.prixUnitaire" />
+                                                        </td>
+
+                                                        <td>
+                                                            <button ng-disabled="fnform.$invalid" class="btn btn-sm oddaExp"  ng-if="verifier == 0" ng-click="OnSave()">
+                                                                <i class="fa fa-save"></i> <b> Valider </b>
+                                                            </button>
+                                                            <button class="btn btn-sm" ng-if="verifier == 1" style="background-color: #71dd8a; color: white;" ng-click="OnUpdate()"><i class="fa fa-save"></i><b> Modifier</b></button>
+                                                        </td>
+
+                                                        <td>
+                                                            <button type="reset" class="btn btn-sm" style="background-color: #71adb1; color: white; text-transform: uppercase;" ng-click="init()"><i class="fa fa-eraser"></i> Annuler</button>
+                                                        </td>
+
+                                                        
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+                                                <table ng-table="usersTable" class="table table-striped table-hover table-bordered table-sm">
+                                                    <tbody>
+                                                        <tr ng-repeat="us in data" class="even pointer">
+                                                            <td style="width: 3%;" class="text-center"><i class="fa fa-cogs"> </i></td>
+
+                                                            <td style="width: 4%;" class="text-center" data-title="'N'">{{$index+1}}</td>
+                                                            <td style="width: 10%; text-align: center;" class="" data-title="'Ref'" sortable="'code'" filter="{ 'reference': 'text' }">{{us.reference}}</td>
+ 															<td style="width: 30%; text-align: center;" class="" data-title="'Designation'" sortable="'designation'" filter="{ 'designation': 'text' }">{{us.designation}}</td>
+ 															<td style="width: 10%; text-align: center;" class="" data-title="'Stock'" sortable="'stock'" filter="{ 'stock': 'text' }">{{us.stock}}</td>
+ 															
+ 															
+ 															<td style="width: 10%; text-align: center;" class="" data-title="'Prix U'" sortable="'prixUnitaire'" filter="{ 'prixUnitaire': 'text' }">{{us.prixUnitaire |number}}</td>
+ 															<td style="width: 15%; text-align: center;" class="" data-title="'Conditionnement'">{{us.conditionnement.libelle}}</td>
+ 															
+                                                             <td style="width: 1%; text-align: center;" id="detail">
+                                                                <button  data-placement="bottom" title="Ratacher Photo" class="btn oddaActiv btn-xs" data-toggle="modal" data-target="#DetailModal" ng-click="OnEditePhoto(us.id)"><i class="fa  fa-copy"></i></button>
+                                                            </td>
+                                                            
+                                                            <td style="width: 1%; text-align: center;" id="modifier">
+                                                                <button data-toggle="tooltip" data-placement="bottom" title="Modifier Un Article" class="btn oddaEdite btn-xs" ng-click="OnEdite(us.id)"><i class="fa fa-edit"></i></button>
+                                                            </td>
+                                                            
+                                                            <td style="width: 1%; text-align: center;" id="supprimer">
+                                                                <button type="button" data-toggle="tooltip" data-placement="bottom" title="Supprimer Un Article" class="btn oddaDelete btn-xs" ng-click="showConfirm($event,us.id)">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                    <!-- Modal -->
+									<div class="modal fade bd-example-modal-lg" id="DetailModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="false">
+									    <div class="modal-dialog modal-md" role="document">
+									        <div class="modal-content">
+									            <div class="modal-header">
+									                <h4 class="modal-title" id="exampleModalLabel1" style="font-family: TimeNewRoman; text-align: center;">ASSOCIER UNE IMAGE POUR L'ARTICLE <b style="color: red">{{articleRecupere.designation}}</b> </h4>
+									                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									                    <span aria-hidden="true">&times;</span>
+									                </button>
+									            </div>
+									            <div class="modal-body">
+									                <div class="col-md-12">
+									                    <div class="row">
+									                        <div class="col-md-12">
+									                            <h4 style="font-family: Bell MT; text-align: center;"></h4>
+									                            
+									                            <div class="text-center" align="center">
+									                              <img  width="300" height="400" id="photo" src="/api/article/photo2?idarticle={{articleRecupere.id}}" alt="" class=" img-responsive">
+									                            </div>
+									                            <form name="fnforme"><br>  <br><br>
+									                                <div class="col-md-12 col-sm-12 col-xs-12">
+									                                    <input class="form-control form-control form-control-sm" required id="myFile" file-model="myFile" type="file" name="file" />
+									                                </div>
+									                                <br />  <br />
+									                            </form>
+									                            <div class="col-md-12 col-sm-12 col-xs-12 table-responsive">
+									                                <div align="center">  <br />
+									                                    <button type="button" class="btn btn-success btn-sm"  ng-click="onSavePhoto()">Valider Photo</button>
+									                                    <button type="button" class="btn btn-danger btn-sm" data-dismiss="modal" ng-click="close()">Fermer</button>
+									                                </div>
+									                            </div>
+									                        </div>
+									                    </div>
+									                </div>
+									
+									                <br />
+									
+									                <div class="modal-footer"></div>
+									            </div>
+									        </div>
+									    </div>
+									</div>
+									                                    
+                                    
+                                    
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

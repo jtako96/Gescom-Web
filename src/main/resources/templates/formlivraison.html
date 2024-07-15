@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html data-layout-decorate="~{fragments/layout_ROLE_Administrateur}">
+    <head>
+        <meta charset="utf-8" />
+        <title>Gerer Les Livraisons</title>
+        <style>
+			fieldset {
+			  background-color: rgb(255 255 255);
+			}
+			
+			legend {
+			  background-color: rgb(206 206 206);
+			  color: white;
+			}
+			
+	</style>
+    </head>
+    <body ng-app="paramapp" ng-controller="paramBonLivraison">
+        <div  style="padding-right: 2%; padding-left: 2%;"  class="right_col" role="main" data-layout-fragment="content">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 style="font-family: Bell MT;">GESCCOM-WEB</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 style="font-family: Bell MT;">Gestion des Bons de Livraison</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" ng-cloak>
+                                <div class="col-md-12" ng-show="swithlivraison == 0">
+                                    
+                                    <div class="col-md-11 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+                                                <table ng-table="usersTable" class="table table-striped table-hover table-bordered table-sm">
+                                                    <tbody>
+                                                        <tr ng-repeat="us in data" class="even pointer">
+
+                                                           <td style="width: 4%;" class="text-center" data-title="'N'">{{$index+1}}</td>
+                                                            
+                                                           <td style="width: 10%;" class="text-center" data-title="'Numero'">{{us.numero}}</td>
+                                                           <td style="width: 10%; text-align: center;" class="" data-title="'Date'" >
+                                                           {{us.dateLivraison}} </td>
+ 															<td style="width: 25%; text-align: left;" class="" data-title="'Client'">
+                                                           {{us.vente.client.raisonSocial}}</td>
+                                                           <td style="width: 10%; text-align: center;" class="" data-title="'Facture'" >
+                                                           {{us.vente.code}} </td>
+                                                            <td style="width: 20%; text-align: center;" class="" data-title="'Adresse Liv'" >
+                                                           {{us.adresseLivraison}} </td>
+                                                            <td style="width: 20%; text-align: center;" class="" data-title="'Garantie'" >
+                                                           {{us.garantie}} </td>
+                                                            <td style="width: 1%; text-align: center;" id="modifier">
+                                                                <button data-toggle="tooltip" data-placement="bottom" title="Modifier le Bon Livraison" class="btn oddaEdite btn-xs" ng-click="OnGetLivraison(us.id)"><i class="fa fa-eye"></i></button>
+                                                            </td>
+                                                            <td style="width: 1%; text-align: center;" id="supprimer">
+                                                                <button type="button" data-toggle="tooltip" data-placement="bottom" title="Supprimer le Bon Livraison" class="btn oddaDelete btn-xs" ng-click="showConfirm($event,us.id)">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-1" align="center" style="align-content: center;">
+  										
+                                        <button ng-disabled="fnform.$invalid" class="btn btn-sm oddaExp"  ng-if="verifier == 0" ng-click="OnSaveLivraison()">
+                                             <i class="fa fa-save"></i> <b> Nouveau  </b>
+                                        </button>
+                                         <button ng-disabled="fnform.$invalid" class="btn btn-sm oddaExp"  ng-if="verifier == 0" ng-click="afficherDetailLivraison()">
+                                             <i class="fa fa-print"></i> <b> Imprimer </b>
+                                        </button>
+                                        
+                                         <button ng-disabled="fnform.$invalid" class="btn btn-sm oddaExp"  ng-if="verifier == 0" ng-click="OnSave()">
+                                             <i class="fa fa-plus"></i> <b> Générer </b>
+                                        </button>
+                                     
+                                    </div>
+                                    
+                                    
+                                </div>
+                                
+                                <div class="col-md-12 col-sm-12 col-xs-12" ng-show="swithlivraison == 1">
+                                   <fieldset>
+                                   <legend>LISTE DES FACTURES ACTIFS</legend>
+                                	      <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+                                                <table ng-table="usersTable1" class="table table-striped table-hover table-bordered table-sm">
+                                                    <tbody>
+                                                        <tr ng-repeat="us in data1" class="even pointer">
+
+                                                            <td style="width: 4%;" class="text-center" data-title="'N'">{{$index+1}}</td>
+                                                            
+                                                             <td style="width: 10%;" class="text-center" data-title="'Numero'">{{us.code}}</td>
+                                                           <td style="width: 10%; text-align: center;" class="" data-title="'Date'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           {{us.dateVente}} </td>
+ 															<td style="width: 25%; text-align: center;" class="" data-title="'Client'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           {{us.client.raisonSocial}} </td>
+                                                           <td style="width: 15%; text-align: center;" class="" data-title="'M_HT'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           {{us.montantHT |number}}</td>
+                                                            <td style="width: 15%; text-align: center;" class="" data-title="'M_TVA'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           {{us.montantTVA |number}}</td>
+                                                           <td style="width: 15%; text-align: center;" class="" data-title="'M_TTC'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           {{us.montantTTC |number}}</td>
+                                                            <td style="width: 1%; text-align: center;" id="modifier">
+                                                                <button ng-if="us.statutLivraison.id == 1 && confirm==true" data-toggle="tooltip" data-placement="bottom" title="Géneration des Details Livraison" class="btn oddaEdite btn-xs" ng-click="OnChoixVente(us.id)"><i class="fa fa-edit"></i></button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                      </fieldset>
+                                </div>
+                                <br><br>
+                                 <div class="col-md-12 col-sm-12 col-xs-12" ng-show="swithlivraison == 1">
+                                 	<div class="row">
+                                 		
+                                 		<div class="col-md-3">
+	                                 		 <fieldset>
+	                                  			 <legend>DETAILS SUR LES BONS</legend>
+	                                  			 <div class="form-group col-md-12 col-sm-12 col-xs-12">
+									                 <label for="message-text" class="col-form-label text-danger">Numero Bon </label>
+									                 <input disabled="disabled" style="text-align: center; font: bold" class=" form-control form-control-sm"   name="sed" ng-model="livraisonRecuperer.numero" type="text">
+									            </div>
+									            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+									                 <label for="message-text" class="col-form-label">Date Livraison </label>
+									                 <input style="text-align: center; font: bold" class=" form-control form-control-sm"   name="sed" ng-model="livraisonRecuperer.dateLivraison" type="date">
+									            </div>
+									            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+									                 <label for="message-text" class="col-form-label">Adresse Livraison </label>
+									                 <input style="text-align: center; font: bold" class=" form-control form-control-sm"   name="sed" ng-model="livraisonRecuperer.adresseLivraison" type="text">
+									            </div>
+									            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+									                 <label for="message-text" class="col-form-label">Garantie </label>
+									                 <input style="text-align: center; font: bold" class=" form-control form-control-sm"   name="sed" ng-model="livraisonRecuperer.garantie" type="text">
+									            </div>
+									            <div class="form-group col-md-12 col-sm-12 col-xs-12">
+									                 <label for="message-text" class="col-form-label">Observation </label>
+									                 <textarea style="text-align: center; font: bold" class=" form-control form-control-sm"   name="sed" ng-model="proformaRecuperer.observation" type="text"></textarea>
+									            </div>
+									            
+									            
+	                                  		 </fieldset>
+                                 		</div>
+                                 		
+                                 		<div class="col-md-9"> <br>
+                                 			
+                                 		</div>
+                                 		<div class="table-responsive col-md-9 col-sm-12 col-xs-12">
+                                                <table ng-table="usersTable2" class="table table-striped table-hover table-bordered table-sm">
+                                                    <tbody>
+                                                        <tr ng-repeat="us in data2" class="even pointer">
+
+                                                           <td style="width: 30%; text-align: left;" class="" data-title="'Article'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           {{us.panier.stock.article.designation}} </td>
+ 														   <td style="width: 10%; text-align: right;" class="" data-title="'Qte_commande'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           {{us.qteCommande}} </td>
+                                                           <td style="width: 10%; text-align: right;" class="" data-title="'Qte_A_Livre'" sortable="'taux'" filter="{ 'taux': 'text' }">
+                                                           <input ng-disabled="us.etat==true" style="text-align: center; font: bold" class=" form-control form-control-sm"   name="sed" ng-model="quantiteAlivrer" type="number">
+                                                           </td>
+                                                            <td style="width: 10%; text-align: right;" class="" data-title="'Qte_Livre'"  filter="{ 'taux': 'text' }">
+                                                             {{us.qteALivrer}} 
+                                                           </td>
+                                                            <td style="width: 10%; text-align: right;" class="" data-title="'Qte_Reste'" filter="{ 'taux': 'text' }">
+                                                           {{us.resteALivrer}}</td>
+                                                           <td style="width: 15%; text-align: right;" class="" data-title="'Num_Facture'"  filter="{ 'taux': 'text' }">
+                                                           {{us.panier.vente.code}}</td>
+                                                            <td style="width: 1%; text-align: center;" id="modifier">
+                                                                <button ng-if="us.etat == false || us.resteALivrer!=0" data-toggle="tooltip" data-placement="bottom" title="Modifier la Période" class="btn oddaActiv btn-xs" ng-click="OnSaveDetails(us.id,quantiteAlivrer)"><i class="fa fa-check"></i></button>
+                                                                <button ng-if="us.etat == true" data-toggle="tooltip" data-placement="bottom" title="Modifier la Période" class="btn oddaEdite btn-xs" ><i class="fa fa-check"></i>_OK</button>
+                                                           </td>
+                                                           <td style="width: 1%; text-align: center;" id="modifier">
+                    
+                                                                <button ng-if="us.etatImprimer == true" data-toggle="tooltip" data-placement="bottom" title="Modifier la Période" class="btn oddaEdite btn-xs" ><i class="fa fa-check"></i>_imp</button>
+                                                           </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                                
+                                                       <a ng-href="/api/etat/proforma/all?id={{proformaRecuperer.id}}&type=R" target="_blank" type="button" data-toggle="tooltip" data-placement="bottom" title="Imprimer globalement" class="btn oddaActiv btn-sm" ng-click="">
+                                                                    <i class="fa fa-print"></i>  Imprimer_ALL
+                                                                </a>
+                                                                 <button type="button" data-toggle="tooltip" data-placement="bottom" title="Quitter le Bon" class="btn oddaDelete btn-sm" ng-click="fermerBon()">
+                                                                    <i class="fa fa-close"></i>  Fermer
+                                                                </button>
+                                                                <button type="button" data-toggle="tooltip" data-placement="bottom" title=" Generation de l'ecriture" class="btn oddaExp " ng-click="OnVirify()">
+                                                                    <i class="fa fa-save"></i>  Enregistrer
+                                                                </button>
+                                                                
+                                            </div>
+                                            
+                                 	</div>
+                                </div>
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

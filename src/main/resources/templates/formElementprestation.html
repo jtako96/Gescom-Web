@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html data-layout-decorate="~{fragments/layout_ROLE_Administrateur}">
+    <head>
+        <meta charset="utf-8" />
+        <title>Gerer Element de prestation</title>
+    </head>
+    <body ng-app="paramapp" ng-controller="paramTypePrestation">
+        <div  style="padding-right: 10%; padding-left: 10%;"  class="right_col" role="main" data-layout-fragment="content">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 style="font-family: Bell MT;">GESCCOM-WEB</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 style="font-family: Bell MT;">Gestion des Elements de Prestation</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" ng-cloak>
+                                <div class="col-md-12">
+                                    <div class="col-md-12 col-sm-6 col-xs-12 table-responsive" align="center">
+                                        <form name="fnform" align="center">
+                                            <table class="table table-sm table-bordered" style="overflow: hidden;">
+                                                <thead>
+                                                    <tr>
+                                                        <th colspan="6"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        
+                                                        <td>
+                                                                <select ng-model="typePrestation.journalComptable.id" convert-to-number required class="form-control col-md-7 col-xs-12">
+                                                                    <option ng-repeat="opts in getJournale" value="{{opts.id}}">{{opts.libelle}}</option>
+                                                                </select>
+                                                        </td>
+                                                        <td>
+                                                            <input placeholder="Libelle" class="form-control form-control form-control-sm" required type="text" name="typePrestationLibelle" ng-model="typePrestation.libelle" />
+                                                        </td>
+
+                                                        <td>
+                                                            <button ng-disabled="fnform.$invalid" class="btn btn-sm oddaExp"  ng-if="verifier == 0" ng-click="OnSave()">
+                                                                <i class="fa fa-save"></i> <b> Valider </b>
+                                                            </button>
+                                                            <button class="btn btn-sm" ng-if="verifier == 1" style="background-color: #71dd8a; color: white;" ng-click="OnUpdate()"><i class="fa fa-save"></i><b> Modifier</b></button>
+                                                        </td>
+
+                                                        <td>
+                                                            <button type="reset" class="btn btn-sm" style="background-color: #71adb1; color: white; text-transform: uppercase;" ng-click="init()"><i class="fa fa-eraser"></i> Annuler</button>
+                                                        </td>
+
+                                                        <td>
+                                                            <a ng-href="/impression/liste_des_exercices" target="_blank" style="background-color: #71adb1; color: white; text-transform: uppercase;" class="btn btn-sm" type="button">
+                                                                <i style="font-size: 10px;" class="fa fa-file-pdf-o"></i> Exporter pdf
+                                                            </a>
+                                                        </td>
+
+                                                        <td>
+                                                            <a ng-href="/export/api/exercice/excel" style="background-color: #71adb1; color: white; text-transform: uppercase;" class="btn btn-sm" type="button">
+                                                                <i class="fa fa-file-excel-o"></i> Exporter Excel
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </form>
+                                    </div>
+
+                                    <div class="col-md-12 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="table-responsive col-md-12 col-sm-12 col-xs-12">
+                                                <table ng-table="usersTable" class="table table-striped table-hover table-bordered table-sm">
+                                                    <tbody>
+                                                        <tr ng-repeat="us in data" class="even pointer">
+                                                            <td style="width: 3%;" class="text-center"><i class="fa fa-cogs"> </i></td>
+
+                                                            <td style="width: 4%;" class="text-center" data-title="'N'">{{$index+1}}</td>
+                                                            <td style="width: 25%; text-align: center;" class="" data-title="'Type de Prestation'" sortable="'libelle'" filter="{ 'libelle': 'text' }">
+                                                             {{us.libelle}} </td>
+                                                             <td style="width: 15%; text-align: center;" class="" data-title="'Journale'" >
+                                                             {{us.journalComptable.libelle}} </td>
+ 															
+                                                            <td style="width: 1%; text-align: center;" id="modifier">
+                                                                <button data-toggle="tooltip" data-placement="bottom" title="Modifier Type Prestation" class="btn oddaEdite btn-xs" ng-click="OnEdite(us.id)"><i class="fa fa-edit"></i></button>
+                                                            </td>
+                                                            <td style="width: 1%; text-align: center;" id="supprimer">
+                                                                <button type="button" data-toggle="tooltip" data-placement="bottom" title="Supprimer Type Prestation" class="btn oddaDelete btn-xs" ng-click="showConfirm($event,us.id)">
+                                                                    <i class="fa fa-trash"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

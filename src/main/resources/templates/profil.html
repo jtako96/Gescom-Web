@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" data-layout-decorate="~{fragments/layout}">
+<head>
+<meta charset="utf-8">
+<title>Gestion des années</title>
+
+
+
+</head>
+<body ng-app="paramapp" ng-controller="paramprofiladmin">
+
+
+
+	<div style="padding-right: 10%; padding-left: 10%;"  class="right_col"
+		role="main" data-layout-fragment="content" >
+	 
+
+
+						<div class="x_content">
+
+									<div class="col-md-12 col-sm-12  col-xs-12" align="center" >
+									
+									<div class="col-md-2 col-sm-2  col-xs-2" layout="column">
+									</div>
+									   
+									
+									   <div class="col-md-8 col-sm-8  col-xs-8"    layout="column">
+										<form name="fnform"  
+											method="post">
+											
+											
+											
+			                                 	
+			                                 	
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 		 <div    class="col-md-12 col-sm-12 col-xs-12"  style="text-align: center; color: white; font-weight: bold; background-color: navy; height: 25px; padding-top: 5px">
+			                                 	CHANGER DE PROFIL</div>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 
+			                                 	<br>
+			                                 	<br>
+                                        <div class="col-md-6 col-sm-6 col-xs-6"  ng-cloak>
+											<md-input-container flex class="md-block"  style="text-align: center;">
+											<label>LOGIN</label> <input required  readonly="readonly"
+												 name="username"
+												ng-model="profil.username">
+											<div ng-messages="fnform.username.$error">
+												<div ng-message="required">Ne peut être vide</div>
+											</div>
+											</md-input-container>
+											</div>
+											
+										 
+											 <div class="col-md-6 col-sm-6 col-xs-6" ng-cloak>
+											<md-input-container flex class="md-block" style="text-align: center;">
+											<label> MOT DE PASSE</label> <input required
+												 name="password"
+												ng-model="profil.password">
+											<div ng-messages="fnform.password.$error">
+												<div ng-message="required">Ne peut être vide</div>
+											</div>
+											</md-input-container>
+											</div>
+											
+											 
+											
+											<div class="col-md-12 col-sm-12 col-xs-12" >
+												<md-button class="md-raised md-primary" ng-click="validerprofil()">Valider</md-button>
+												</div>
+												
+											<div  class="col-md-12 col-sm-12 col-xs-12"></div>
+											
+											
+											<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 		 <div    class="col-md-12 col-sm-12 col-xs-12"  style="text-align: center; color: white; font-weight: bold; background-color: navy; height: 25px; padding-top: 5px">
+			                                 	</div>
+												
+										</form>
+										</div>
+										
+										<div class="col-md-2 col-sm-2  col-xs-2" layout="column">
+									</div>
+									   
+									</div>
+									
+									
+									
+									
+									
+									</div>
+
+					 
+				 
+			</div>
+
+
+
+ 
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html data-layout-decorate="~{fragments/layout_ROLE_Comptable}">
+<head>
+<meta charset="utf-8">
+<title>Attribution de Stock</title>
+</head>
+<body ng-app="paramapp" ng-controller="paramStock" >
+
+ <div  style="height: 950px;" class="right_col" role="main" data-layout-fragment="content">
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
+                <h3 style="font-family: Bell MT;">GESCCOM-WEB</h3>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title" ng-cloak>
+                     <h2 style="font-family: Bell MT;">ATTRIBUTION DES ARTICLES AU STOCK SCRUSSALE</h2>
+                    <div class="clearfix"></div>
+                      
+                  </div>
+                  
+                       <div class="form-group">
+	                        <div class="col-md-12 col-sm-12 col-xs-12" align="center" >
+	                          <button class="btn oddaExp" ng-click="validerChoix()" ng-disabled="fomulaire.$invalid"><i class="fa fa-plus"></i> Choisir Article</button>
+	                          <button  class="btn oddaActiv" ng-disabled="fomulaire.$invalid" ng-click="showConfirm2($event,etudiantes)" ><i class="fa fa-save"></i> Valider Choix</button>
+	                        </div>
+                         </div>
+                         
+                  <div class="x_content" ng-cloak>
+                  
+                  
+                    <form class="form-horizontal form-label-left" name="fomulaire" method="post">
+						
+						  
+	                      <div class="form-group col-md-6 col-sm-6 col-xs-12 ">
+		                   
+		                    <div class="col-md-4 col-sm-4 col-xs-12">
+			                        <label>Sous Group <span>*</span></label> 
+			                        <select required  class="form-control col-md-7 col-xs-12" ng-model="groupID" ng-change="OnChange()">
+			                        		<option ng-value="opts.id" ng-repeat="opts in listesousgroup">{{opts.libelle}}</option>
+			                        </select>
+			                </div>
+			                
+			                <div class="col-md-4 col-sm-4 col-xs-12">
+			                        <label>Scrussale <span>*</span></label> 
+			                        <select required  class="form-control col-md-7 col-xs-12" ng-model="stock.scrussale.id" ng-change="OnChangeMagasin();OnChange()">
+			                        		<option ng-value="opts.id" ng-repeat="opts in listescrussales">{{opts.pays}}</option>
+			                        </select>
+			                </div>
+	                     		     
+	                     	<div class="col-md-4 col-sm-4 col-xs-12">
+			                        <label>Magasin <span>*</span></label> 
+			                        <select required  class="form-control col-md-7 col-xs-12" ng-model="stock.magasin.id" ng-change="OnChangeChoix()">
+			                        		<option ng-value="opts.id" ng-repeat="opts in listemagasins">{{opts.libelle}}</option>
+			                        </select>
+			                </div>
+			                               
+	                        <div class="col-md-12 col-sm-12 col-xs-12"  style='overflow-x:auto'>
+	                        	<table id="datatable" ng-table="usersTable" class="table table-striped table-bordered" align="left" >
+						                      <tbody>
+							                         <tr ng-repeat="us in data" class="even pointer">
+							                            <td >
+															<input name="table" type="checkbox" class="icheckbox_flat-green checked" data-checklist-model="user.data" data-checklist-value="us">
+														</td>
+														<td style="width: 15%;text-align: center;" class=" " data-title="'Reference'">{{us.reference}}</td>
+														<td style="width: 40%;text-align: left;" class=" " data-title="'Designation'">{{us.designation}}</td>
+														<td style="width: 15%;text-align: right;" class=" " data-title="'Contenance'">{{us.conditionnement.libelle}}</td>
+														<td style="width: 20%;text-align: right;" class=" " data-title="'Prix UE'">{{us.prixUnitaire}}</td>
+														<td style="width: 10%;text-align: right; color: red" class=" " data-title="'Compte'"><b>{{us.compte.numero}}</b></td>
+													</tr>
+													<tr   class="even pointer">
+														<td colspan="8" style="text-align: center;" class=" "> 
+														
+															
+														LISTE DES ARTICLES NON CHOISIES 
+														
+														</td>
+							                           
+											 
+													</tr>
+												
+						                      </tbody><br>
+						                       <tfoot>
+													<tr ng-show="ok==1">
+														<button ng-show="ok==1" class="btn btn-primary btn-xs" id="btn1" ng-click="checkAll()">S</button>
+														<button ng-show="ok==1" class="btn btn-danger btn-xs"  id="btn2"  ng-click="uncheckAll()">D</button>
+													</tr>
+											  </tfoot>
+	                    	  </table>
+		                   </div>    
+	                      </div>
+	                       
+	                      <div class="form-group col-md-6 col-sm-6 col-xs-12" style='padding-top: 24px;'>
+	                       		 <div class="col-md-12 col-sm-12 col-xs-12"  style='overflow-x:auto'>
+	                       		 
+	                     			   <table id="datatable" ng-table="usersTable1" class="table table-striped table-bordered"  >
+						                      <tbody>
+							                         <tr ng-repeat="us in data1" class="even pointer">
+							                          
+													    <td style="width: 15%;text-align: center;" class=" " data-title="'Reference'">{{us.article.reference}}</td>
+														<td style="width: 40%;text-align: left;" class=" " data-title="'Designation'">{{us.article.designation}}</td>
+														<td style="width: 20%;text-align: right;" class=" " data-title="'Quantite R'">{{us.quantiteReel}}</td>
+														<td style="width: 20%;text-align: right;" class=" " data-title="'Quantite L'">{{us.quantiteLogique}}</td>
+														<td style="width: 5%;text-align: center;"><a  ng-click="showConfirm($event,u.id"><i class="fa fa-trash"></i></a></td> 
+													
+												     </tr>
+													 <tr   class="even pointer">
+														<td colspan="6" style="text-align: center;" class=" " data-title="'Semestre'"> 
+														
+														LISTE DES ARTICLES CHOISIES 
+														
+														</td>
+							                           
+											 
+													</tr>
+													
+						                      </tbody>
+						                      
+	                    			  </table>
+	                    			  
+	               				 </div>
+	               		 </div>    
+	                     <div class="ln_solid"></div>
+	                 
+                          
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+		   </div>
+      </div>
+      
+</body>
+</html>

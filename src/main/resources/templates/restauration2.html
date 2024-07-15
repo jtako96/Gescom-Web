@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html data-layout-decorate="~{fragments/layout_ROLE_Administrateur}">
+<head>
+<meta charset="utf-8">
+<title>Restauration</title>
+
+
+
+</head>
+<body ng-app="paramapp" ng-controller="paramsauvegarde">
+
+
+
+	<div style="padding-right: 10%; padding-left: 10%;"  class="right_col"
+		role="main" data-layout-fragment="content" >
+	 
+
+
+						<div class="x_content">
+
+									<div class="col-md-12 col-sm-12  col-xs-12" align="center" >
+									
+									<div class="col-md-2 col-sm-2  col-xs-2" layout="column">
+									</div>
+									   
+									
+									   <div class="col-md-8 col-sm-8  col-xs-8"    layout="column">
+										<form name="fnform"  
+											method="post">
+											
+											
+											
+			                                 	
+			                                 	
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 		 <div    class="col-md-12 col-sm-12 col-xs-12"  style="text-align: center; color: white; font-weight: bold; background-color: navy; height: 25px; padding-top: 5px">
+			                                 	EFFECTUER UNE RESTAURATION</div>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 
+			                                 	<br>
+			                                 	<br>
+                                        <div class="col-md-3 col-sm-3 col-xs-3"  ng-cloak>
+											 
+											</div>
+											
+										 
+											 <div class="col-md-6 col-sm-6 col-xs-6" ng-cloak>
+											<md-input-container flex class="md-block">
+											<label> Veuillez préciser la date</label> <input required
+												awnum   num-int=14 ng-trim=true num-thousand='false' name="password"
+												ng-model="daterestauration">
+											<div ng-messages="fnform.password.$error">
+												<div ng-message="required">Ne peut être vide</div>
+											</div>
+											</md-input-container>
+											</div>
+											
+											 <div class="col-md-3 col-sm-3 col-xs-3"  ng-cloak>
+											 
+											</div>
+											
+											<div ng-show="daterestauration!=null"    class="col-md-12 col-sm-12 col-xs-12"  ng-cloak >
+												<md-button  class="md-raised md-primary" ng-click="showConfirmrest()">Restaurer</md-button>
+												</div>
+												
+											 
+											<div  class="col-md-12 col-sm-12 col-xs-12">{{confirm2}}</div>
+											
+											
+											<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 	<br>
+			                                 		 <div    class="col-md-12 col-sm-12 col-xs-12"  style="text-align: center; color: white; font-weight: bold; background-color: navy; height: 25px; padding-top: 5px">
+			                                 	{{confirm}}</div>
+												
+										</form>
+										</div>
+										
+										<div class="col-md-2 col-sm-2  col-xs-2" layout="column">
+									</div>
+									   
+									</div>
+									
+									
+									
+									
+									
+									</div>
+
+					 
+				 
+			</div>
+
+
+
+ 
+
+</body>
+</html>

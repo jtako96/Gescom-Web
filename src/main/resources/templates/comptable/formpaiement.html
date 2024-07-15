@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html data-layout-decorate="~{fragments/layout_ROLE_Comptable}">
+    <head>
+        <meta charset="utf-8" />
+        <title>Gérer Les Paiements</title>
+        
+        <style>
+			.success{
+			  
+			  font-weight: bold;
+			}
+			
+			.rupture-class{
+			  background-color: red;
+			  font-weight: bold;
+			}
+    	</style>
+    
+    </head>
+    <body ng-app="paramapp" ng-controller="paramPaiement">
+        <div  style="padding-right: 2%; padding-left: 2%;"  class="right_col" role="main" data-layout-fragment="content">
+            <div class="">
+                <div class="page-title">
+                    <div class="title_left">
+                        <h3 style="font-family: Bell MT;">GESCCOM-WEB</h3>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div class="x_panel">
+                            <div class="x_title">
+                                <h2 style="font-family: Bell MT;">Reglement de Facture Client</h2>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="x_content" ng-cloak>
+                                <div class="col-md-12">
+                                
+                                    <div class="col-md-12 col-sm-6 col-xs-12 table-responsive">
+                                       <fieldset>
+                                               <legend>Information du Client</legend>
+                                               
+                                               <div class="row">
+	                                                <div class="col-md-3">
+													   <label for="input-1">Client:</label>
+												       <select ng-model="clientID" convert-to-number required class="form-control form-control-sm col-md-7 col-xs-12" ng-change="OnChangeFacture()">
+                                                             <option ng-repeat="opts in Lclients" value="{{opts.id}}">{{opts.raisonSocial}}</option>
+                                                       </select>
+													</div>
+													 <div class="col-md-3">
+													   <label for="input-2">Débit:</label>
+													   <input class="form-control form-control-sm col-md-7 col-xs-12 text-center" number-input id="input-2" ng-model="clients.soldeDebiteur" type="text"/>
+													</div>
+													 <div class="col-md-3">
+													   <label for="input-3">Crédit:</label>
+													   <input class="form-control form-control-sm col-md-7 col-xs-12 text-center" number-input id="input-3" ng-model="clients.soldeCrediteur" type="text"/>
+													</div>
+												</div>
+                                       
+                                        </fieldset>
+                                   
+                                    </div>
+                                   <div class=""></div> <br>
+                                    <div class="col-md-3 col-sm-3 col-xs-12 table-responsive">
+                                     
+                                        <fieldset>
+                                        <legend>Encaisement</legend>
+                                                    <div class="col-md-12">
+													   <label for="input-3">Date :</label>
+													   <input class="form-control form-control-sm col-md-7 col-xs-12" id="input-3" placeholder="Text" type="date"/>
+													</div>
+													 <div class="col-md-12">
+													   <label for="input-3">Facture :</label>
+													     <select ng-model="paiement.vente.id" name="fac" required class="form-control form-control-sm col-md-7 col-xs-12" ng-change="OnChange()" >
+                                                             <option ng-repeat="opts in Lfactures" value="{{opts.id}}">{{opts.code+" [ "+opts.montantTTC+" ]"}}</option>
+                                                       </select>
+                                                    </div>
+													 <div class="col-md-12">
+													   <label for="input-3">Mode Reg :</label>
+													     <select ng-model="paiement.modeReglement.id" convert-to-number required class="form-control form-control-sm col-md-7 col-xs-12">
+                                                             <option ng-repeat="opts in Lreglements" value="{{opts.id}}">{{opts.libelle}}</option>
+                                                       </select>
+                                                    </div>
+                                                    <div class="col-md-12">
+													   <label for="input-3">Banque :</label>
+													     <select ng-model="paiement.banque.id" convert-to-number required class="form-control form-control-sm col-md-7 col-xs-12">
+                                                             <option ng-repeat="opts in Lbanques" value="{{opts.id}}">{{opts.libelle}}</option>
+                                                       </select>
+                                                    </div>
+                                                    <div class="col-md-12">
+													   <label for="input-3">Montant :</label>
+													   <input name="facMontant" number-input class="form-control form-control-sm text-center" id="input-3" type="text" required ng-model="paiement.montantPayement"/>
+													</div>
+                                                    <div class="col-md-12" ng-if="paiement.modeReglement.id == 3 || paiement.modeReglement.id == 2">
+													   <label for="input-3">Reference :</label>
+													   <input  class="form-control form-control-sm col-md-7 col-xs-12" id="input-3"  type="text" ng-model="paiement.reference"/>
+													</div>
+													
+													<div class="col-md-12">
+													   <label for="input-3">Observation :</label>
+													   <textarea class="form-control form-control-sm col-md-7 col-xs-12" id="input-3"  type="text"  ng-model="paiement.obervation"></textarea>
+													</div>
+                                                    <br><br>
+                                                   
+                                        </fieldset>
+                                       
+                                         <div align="center"> <br>
+                                               <button ng-disabled="paiement.montantPayement==null || paiement.vente.id==null" type="button" data-toggle="tooltip" data-placement="bottom" title="Valider Paiement" class="btn oddaExp " ng-click="validerReglement()">
+                                                       <i class="fa fa-save"></i>  Enregistrer
+                                               </button>
+                                        </div>
+                                
+                                    </div>
+
+                                    <div class="col-md-9 col-sm-12 col-xs-12">
+                                        <div class="row">
+                                            <div class="table-responsive col-md-12 col-sm-12 col-xs-12"> 
+                                             <fieldset>
+                                       			 <legend>Facture  solde</legend> <br>
+                                                 <table id="matab" ng-table="usersTable" show-filter=true class="table table-striped table-bordered table-sm  table-responsive ">
+												 <tbody>
+							                        <tr  ng-repeat="us in data" class="even pointer">
+							                            <td style="  width: 10%" class="text-center" data-title="'CodeReg'" sortable="'code'" filter="{ 'code': 'text' }">{{us.code}}</td>
+														<td style="width: 10%" class="text-center" data-title="'Date'" sortable="'datePayement'" filter="{ 'datePayement': 'text' }">{{us.datePayement}}</td>
+														<td style="width: 15%;" class=" text-center" data-title="'Montant_Paye'" sortable="'montantPayement'" filter="{ 'montantPayement': 'text' }">{{us.montantPayement|number}}</td>
+														<td style="width: 15%;" class=" text-center" data-title="'Mode_Reg'" >{{us.modeReglement.libelle}}</td>
+														
+														<td  style="" width="10%" class=" text-center" id="modif" data-title="'Recu'">
+														     <a class="btn btn-sm oddaActiv" ng-href="/impression/reglement/recu/{{us.id}}" target="_blank"> <i class="fa fa-print"></i>  Recu</a> 	
+														</td>			
+													</tr>
+													
+													<tr ng-class="{'success':situation.situation.rpayer==0,'warning':situation.situation.rpayer>0  && situation.situation.rpayer< situation.situation.apayer,'danger':situation.situation.rpayer==situation.situation.apayer} " ng-if="paiement.vente.id!=null" style="background-color:#A9EAFE;">
+														<td style="font-weight: bold;text-align: center;"> <b>**********</b> </td>
+													    <td style="font-weight: bold;text-align: center;"> A payer </td>
+														<td style="font-weight: bold;text-align: center;"> Paye</td>
+														<td style="font-weight: bold;text-align: center;"> Restant </td>
+														<td style="font-weight: bold;text-align: center;"> <b>********** </b> </td>
+																					  
+													</tr>
+													
+													<tr ng-class="{'success':situation.situation.rpayer!=0,'warning':situation.situation.rpayer>0  && situation.situation.rpayer < situation.situation.apayer,'danger':situation.situation.rpayer==situation.situation.apayer} " ng-if="paiement.vente.id!=null"  >
+														
+														<td> </td>
+														<td style="font-weight: bold; text-align: center;  color: navy;"><h4> <b>{{situation.situation.apayer|number}}</b></h4></td>
+														<td style="font-weight: bold;text-align: center; color: green;"><h4><b>{{situation.situation.payer|number}}</b></h4></td>
+														<td style="font-weight: bold;text-align: center; color: red;"><h4><b>{{situation.situation.rpayer|number}}</b></h4></td>
+														<td> </td>						  
+													</tr>
+												</tbody>
+												<tfoot></tfoot>
+										  </table>
+                                             </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
